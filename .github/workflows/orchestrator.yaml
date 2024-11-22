@@ -21,14 +21,14 @@ jobs:
               workflow_id: "build.yml",
               ref: context.ref,
             });
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Wait for Build Completion
       - name: Wait for Build Completion
         uses: actions/github-script@v6
         with:
           script: |
-            const workflowName = "Build Go Code"; // Nome do workflow "build.yml"
+            const workflowName = "Build Go Code";
             const checkStatus = async () => {
               const runs = await github.rest.actions.listWorkflowRuns({
                 owner: context.repo.owner,
@@ -44,10 +44,10 @@ jobs:
             };
             let success = false;
             while (!success) {
-              await new Promise((resolve) => setTimeout(resolve, 10000)); // Aguarda 10 segundos
+              await new Promise((resolve) => setTimeout(resolve, 10000));
               success = await checkStatus();
             }
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Trigger Test Workflow
       - name: Trigger Test Workflow
@@ -60,14 +60,14 @@ jobs:
               workflow_id: "test.yml",
               ref: context.ref,
             });
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Wait for Test Completion
       - name: Wait for Test Completion
         uses: actions/github-script@v6
         with:
           script: |
-            const workflowName = "Test Go Code"; // Nome do workflow "test.yml"
+            const workflowName = "Test Go Code";
             const checkStatus = async () => {
               const runs = await github.rest.actions.listWorkflowRuns({
                 owner: context.repo.owner,
@@ -83,10 +83,10 @@ jobs:
             };
             let success = false;
             while (!success) {
-              await new Promise((resolve) => setTimeout(resolve, 10000)); // Aguarda 10 segundos
+              await new Promise((resolve) => setTimeout(resolve, 10000));
               success = await checkStatus();
             }
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Trigger Merge Workflow
       - name: Trigger Merge Workflow
@@ -99,4 +99,4 @@ jobs:
               workflow_id: "merge.yml",
               ref: context.ref,
             });
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
