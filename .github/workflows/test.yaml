@@ -1,28 +1,30 @@
 name: Test Go Code
 
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build Go Code"] # Nome do workflow de build
+    types:
+      - completed
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: ${{ success() }} # Garante que o workflow de teste só seja executado se o de build for bem-sucedido
 
     steps:
       # Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Config Go
+      # Set up Go
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: 1.23
 
-      # Download build artifact
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build-output
+      # Install dependencies
+      - name: Install dependencies
+        run: go mod tidy
 
       # Run tests
       - name: Run tests

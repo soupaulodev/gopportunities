@@ -1,7 +1,10 @@
 name: Build Go Code
 
 on:
-  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
@@ -26,9 +29,6 @@ jobs:
       - name: Build project
         run: go build -v ./...
 
-      # Save build artifact
-      - name: Save build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-output
-          path: .
+      # Run tests
+      - name: Run tests
+        run: go test -v ./...
