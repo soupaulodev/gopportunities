@@ -15,13 +15,13 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const response = await github.rest.actions.createWorkflowDispatch({
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: "build.yml",
               ref: context.ref,
             });
-            console.log("Build workflow triggered:", response.status);
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Wait for Build Completion
       - name: Wait for Build Completion
@@ -47,19 +47,20 @@ jobs:
               await new Promise((resolve) => setTimeout(resolve, 10000)); // Aguarda 10 segundos
               success = await checkStatus();
             }
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Trigger Test Workflow
       - name: Trigger Test Workflow
         uses: actions/github-script@v6
         with:
           script: |
-            const response = await github.rest.actions.createWorkflowDispatch({
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: "test.yml",
               ref: context.ref,
             });
-            console.log("Test workflow triggered:", response.status);
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Wait for Test Completion
       - name: Wait for Test Completion
@@ -85,16 +86,17 @@ jobs:
               await new Promise((resolve) => setTimeout(resolve, 10000)); // Aguarda 10 segundos
               success = await checkStatus();
             }
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # Trigger Merge Workflow
       - name: Trigger Merge Workflow
         uses: actions/github-script@v6
         with:
           script: |
-            const response = await github.rest.actions.createWorkflowDispatch({
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: "merge.yml",
               ref: context.ref,
             });
-            console.log("Merge workflow triggered:", response.status);
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
