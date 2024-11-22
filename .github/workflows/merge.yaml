@@ -2,6 +2,11 @@ name: Merge Pull Request
 
 on:
   workflow_dispatch:
+    inputs:
+      example_input:
+        description: ""
+        required: false
+        default: ""
 
 jobs:
   merge:

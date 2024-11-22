@@ -2,6 +2,11 @@ name: Test Go Code
 
 on:
   workflow_dispatch:
+    inputs:
+      example_input:
+        description: ""
+        required: false
+        default: ""
 
 jobs:
   test:
