@@ -1,10 +1,7 @@
-name: MergePRs
+name: Merge Pull Request
 
 on:
-  workflow_run:
-    workflows: ["Test Go Code"]
-    types:
-      - completed
+  workflow_dispatch:
 
 jobs:
   merge:

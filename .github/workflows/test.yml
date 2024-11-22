@@ -1,10 +1,7 @@
-name: Test
+name: Test Go Code
 
 on:
-  workflow_run:
-    workflows: ["Build Go Code"]
-    types:
-      - completed
+  workflow_dispatch:
 
 jobs:
   test:
