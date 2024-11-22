@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  workflow_run:
+    workflows: ["Build Go Code"]
+    types:
+      - completed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Config Go
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.23
+
+      # Download build artifact
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+
+      # Run tests
+      - name: Run tests
+        run: go test -v ./...

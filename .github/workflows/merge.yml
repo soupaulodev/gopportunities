@@ -1,0 +1,32 @@
+name: MergePRs
+
+on:
+  workflow_run:
+    workflows: ["Test Go Code"]
+    types:
+      - completed
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Merge pull request
+      - name: Merge pull request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (!context.payload.pull_request) {
+              throw new Error("Este workflow só pode ser usado em pull requests.");
+            }
+            const prNumber = context.payload.pull_request.number;
+            await github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              merge_method: "merge", // Pode ser "merge", "squash" ou "rebase"
+            });
