@@ -1,6 +1,6 @@
 # GOPPORTUNITIES
 
-![CI Status](https://github.com/soupaulodev/gopportunities/actions/workflows/orchestrate.yml/badge.svg) ![Build Status](https://github.com/soupaulodev/gopportunities/actions/workflows/build.yml/badge.svg) ![Test Status](https://github.com/soupaulodev/gopportunities/actions/workflows/test.yml/badge.svg) ![Merge Status](https://github.com/soupaulodev/gopportunities/actions/workflows/merge.yml/badge.svg)
+![Build And Test Status](https://github.com/soupaulodev/gopportunities/actions/workflows/build-and-test.yml/badge.svg)
 
 ![Gopher image](https://miro.medium.com/v2/resize:fit:735/1*_d8_TuE2kIsZnCSEamV4jA.jpeg)
 
