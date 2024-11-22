@@ -31,7 +31,7 @@ Caso você não tenha o Go ou o Docker instalado, acesse a [golang.org](https://
 ### Para clonar o repositório, execute o seguinte comando
 
 ```sh
-git clone https://github.com/soupaulodev/togo
+git clone https://github.com/soupaulodev/gopportunities
 ```
 
 ### Subindo os containers docker
